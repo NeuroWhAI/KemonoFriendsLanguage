@@ -119,7 +119,7 @@ void Interpreter::run()
 		{
 			if (m_callStack.empty())
 			{
-				++m_head;
+				break;
 			}
 			else
 			{
