@@ -25,7 +25,7 @@ Compiler::Compiler()
 	, m_omoshiToken(Program::OMOS, { "omoshiro", "¿À¸ð½Ã·Î" })
 	, m_lalaToken({ "la", "¶ó", "¶ö" })
 	, m_writeRegToken(Program::SARU, { "shaberu", "»þº£·ç" })
-	, m_readRegToken(Program::SABT, { "Shabetta", "Shabeta", "»þºªÅ¸", "»þº£Å¸" })
+	, m_readRegToken(Program::SABT, { "shabetta", "shabeta", "»þºªÅ¸", "»þº£Å¸" })
 {
 	
 }
