@@ -2,50 +2,34 @@
 
 #include <stdexcept>
 #include <algorithm>
+#include <sstream>
 
 
 
 
 Compiler::Compiler()
+	: m_tokenList(
 {
-	m_funcTokens.emplace_back("friends");
-	m_funcTokens.emplace_back("프렌즈");
-
-	m_callTokens.emplace_back("sandstar");
-	m_callTokens.emplace_back("샌드스타");
-
-	m_mainTokens.emplace_back("youkoso");
-	m_mainTokens.emplace_back("요코소");
-
-	m_tanoshiTokens.emplace_back("ta");
-	m_tanoshiTokens.emplace_back("타");
-
-	m_sugoiTokens.emplace_back("sugo");
-	m_sugoiTokens.emplace_back("스고");
-
-	m_uwaTokens.emplace_back("u");
-	m_uwaTokens.emplace_back("우");
-
-	m_waiTokens.emplace_back("wa");
-	m_waiTokens.emplace_back("와");
-
-	m_naniTokens.emplace_back("nanikore");
-	m_naniTokens.emplace_back("나니코레");
-
-	m_omoshiTokens.emplace_back("omoshiro");
-	m_omoshiTokens.emplace_back("오모시로");
-
-	m_lalaTokens.emplace_back("la");
-	m_lalaTokens.emplace_back("라");
-	m_lalaTokens.emplace_back("랄");
-
-	m_writeRegTokens.emplace_back("shaberu");
-	m_writeRegTokens.emplace_back("샤베루");
-
-	m_readRegTokens.emplace_back("Shabetta");
-	m_readRegTokens.emplace_back("Shabeta");
-	m_readRegTokens.emplace_back("샤벳타");
-	m_readRegTokens.emplace_back("샤베타");
+	&m_funcToken, &m_callToken, &m_mainToken, &m_tanoshiToken, &m_sugoiToken,
+	&m_uwaToken, &m_waiToken, &m_naniToken, &m_omoshiToken, &m_lalaToken,
+	&m_writeRegToken, &m_readRegToken,
+}
+	)
+	
+	, m_funcToken({ "friends", "프렌즈" })
+	, m_callToken(m_funcTable, { "sandstar", "샌드스타" })
+	, m_mainToken({ "youkoso", "요코소" })
+	, m_tanoshiToken(Program::TAN, { "ta", "타" })
+	, m_sugoiToken(Program::SUG, { "sugo", "스고", "슷고" })
+	, m_uwaToken({ "u", "우" })
+	, m_waiToken({ "wa", "와" })
+	, m_naniToken(Program::NANI, { "nanikore", "나니코레" })
+	, m_omoshiToken(Program::OMOS, { "omoshiro", "오모시로" })
+	, m_lalaToken({ "la", "라", "랄" })
+	, m_writeRegToken(Program::SARU, { "shaberu", "샤베루" })
+	, m_readRegToken(Program::SABT, { "Shabetta", "Shabeta", "샤벳타", "샤베타" })
+{
+	
 }
 
 //###################################################################################################
@@ -65,7 +49,7 @@ Program Compiler::compile(const std::vector<std::string>& tokens)
 	// 함수 테이블 작성.
 	for (; itr != tokens.end(); ++itr, ++index)
 	{
-		if (isToken(m_funcTokens, *itr))
+		if (m_funcToken.check(*itr))
 		{
 			if (index + 1 >= tokens.size())
 				throw std::exception("There is no name for function.");
@@ -79,7 +63,7 @@ Program Compiler::compile(const std::vector<std::string>& tokens)
 			++itr;
 			++index;
 		}
-		else if (isToken(m_mainTokens, *itr))
+		else if (m_mainToken.check(*itr))
 		{
 			// 프로그램 시작 위치 설정.
 			program.setMain(index + 1);
@@ -89,102 +73,37 @@ Program Compiler::compile(const std::vector<std::string>& tokens)
 
 	itr = tokens.begin();
 	index = 0;
+	std::size_t skipCount = 0;
 
 	// 중간 코드 생성.
 	for (; itr != tokens.end(); ++itr, ++index)
 	{
-		if (isToken(m_callTokens, *itr))
-		{
-			if (index + 1 >= tokens.size())
-				throw std::exception("There is no name for function-call.");
+		program.appendUwaiList();
 
-			const auto& funcName = tokens[index + 1];
 
-			auto funcItr = m_funcTable.find(funcName);
-			if (funcItr == m_funcTable.end())
-				throw std::exception("There is no function.");
+		if (skipCount > 0)
+		{
+			--skipCount;
+			continue;
+		}
 
-			program.pushNop();
-			program.pushCall(funcItr->second);
 
-			// 다음은 이름이므로 건너 뜀.
-			++itr;
-			++index;
-		}
-		else if (isToken(m_funcTokens, *itr))
-		{
-			program.pushNop();
-			program.pushFunc();
+		bool findToken = false;
 
-			// 다음은 이름이므로 건너 뜀.
-			++itr;
-			++index;
-		}
-		else if (isToken(m_mainTokens, *itr))
+		for (auto& tok : m_tokenList)
 		{
-			program.pushFunc();
-		}
-		else if (startWithToken(m_tanoshiTokens, *itr))
-		{
-			program.pushCmd(Program::TAN, *itr);
-		}
-		else if (startWithToken(m_sugoiTokens, *itr))
-		{
-			program.pushCmd(Program::SUG, *itr);
-		}
-		else if (startWithToken(m_uwaTokens, *itr))
-		{
-			program.pushCmd(Program::UWA, *itr);
-		}
-		else if (startWithToken(m_waiTokens, *itr))
-		{
-			program.pushCmd(Program::WAI, *itr);
-		}
-		else if (startWithToken(m_naniTokens, *itr))
-		{
-			program.pushCmd(Program::NANI, *itr);
-		}
-		else if (startWithToken(m_omoshiTokens, *itr))
-		{
-			program.pushCmd(Program::OMOS, *itr);
-		}
-		else if (startWithToken(m_lalaTokens, *itr))
-		{
-			std::string lala;
-			for (std::size_t laOffset = 0; laOffset < itr->size();)
+			auto result = tok->checkAndCompile(itr, *itr, program);
+
+			if (result.first)
 			{
-				bool findTok = false;
+				skipCount += result.second;
 
-				for (auto& tok : m_lalaTokens)
-				{
-					if (itr->find(tok, laOffset) == 0)
-					{
-						laOffset += tok.length();
-
-						lala.push_back(Program::LAL[0]);
-
-						findTok = true;
-						break;
-					}
-				}
-
-				if (findTok == false)
-				{
-					++laOffset;
-				}
+				findToken = true;
+				break;
 			}
+		}
 
-			program.pushCmd(Program::LAL, lala);
-		}
-		else if (isToken(m_writeRegTokens, *itr))
-		{
-			program.pushCmd(Program::SARU, *itr);
-		}
-		else if (isToken(m_readRegTokens, *itr))
-		{
-			program.pushCmd(Program::SABT, *itr);
-		}
-		else
+		if (findToken == false)
 		{
 			program.pushCmd(*itr);
 		}
@@ -196,24 +115,5 @@ Program Compiler::compile(const std::vector<std::string>& tokens)
 
 
 	return program;
-}
-
-//###################################################################################################
-
-bool Compiler::isToken(const std::vector<std::string>& tokens, const std::string& text) const
-{
-	return (std::find(tokens.begin(), tokens.end(), text) != tokens.end());
-}
-
-
-bool Compiler::startWithToken(const std::vector<std::string>& tokens, const std::string& text) const
-{
-	for (auto& tok : tokens)
-	{
-		if (text.find(tok) == 0)
-			return true;
-	}
-
-	return false;
 }
 

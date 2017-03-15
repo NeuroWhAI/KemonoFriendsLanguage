@@ -28,72 +28,6 @@ void Interpreter::setProgram(const Program& proc)
 	m_ptr = 0;
 	while (!m_callStack.empty())
 		m_callStack.pop();
-	m_uwaIDList.clear();
-	m_uwaArgList.clear();
-	m_waiIDList.clear();
-	m_waiArgList.clear();
-
-
-	auto& codeLine = proc.getCode();
-
-	// 점프 테이블 작성.
-	for (auto& code : codeLine)
-	{
-		m_uwaIDList.emplace_back(0);
-		m_uwaArgList.emplace_back(0);
-		m_waiIDList.emplace_back(0);
-		m_waiArgList.emplace_back(0);
-		
-		if (code[0] != Program::CMD[0])
-			continue;
-
-		std::istringstream sr{ code };
-		sr.get();
-		const char subType = sr.get();
-
-		if (subType == Program::UWA[0])
-		{
-			++m_uwaIDList.back();
-
-			while (!sr.eof())
-			{
-				auto ch = sr.get();
-
-				if (ch == '-')
-				{
-					if (m_uwaArgList.back() >= std::numeric_limits<char>::max())
-						throw std::exception("Too big uwa-arg.");
-
-					++m_uwaArgList.back();
-				}
-				else if (ch == '~')
-				{
-					++m_uwaIDList.back();
-				}
-			}
-		}
-		else if (subType == Program::WAI[0])
-		{
-			++m_waiIDList.back();
-
-			while (!sr.eof())
-			{
-				auto ch = sr.get();
-
-				if (ch == '-')
-				{
-					if (m_waiArgList.back() >= std::numeric_limits<char>::max())
-						throw std::exception("Too big wai-arg.");
-
-					++m_waiArgList.back();
-				}
-				else if (ch == '~')
-				{
-					++m_waiIDList.back();
-				}
-			}
-		}
-	}
 
 
 	m_proc = proc;
@@ -346,15 +280,17 @@ void Interpreter::cmdSugoi(std::istringstream & sr)
 
 void Interpreter::cmdUwa(std::istringstream & sr)
 {
-	if (m_ram[m_ptr] == m_uwaArgList[m_head])
+	if (m_ram[m_ptr] == m_proc.getUwaArg(m_head))
 	{
 		const auto endHead = m_proc.getCode().size();
 
 		bool findMatch = false;
 
+		const auto targetID = m_proc.getUwaID(m_head);
+
 		for (auto h = m_head; h < endHead; ++h)
 		{
-			if (m_waiIDList[h] == m_uwaIDList[m_head])
+			if (m_proc.getWaiID(h) == targetID)
 			{
 				m_head = h;
 
@@ -377,13 +313,15 @@ void Interpreter::cmdUwa(std::istringstream & sr)
 
 void Interpreter::cmdWai(std::istringstream & sr)
 {
-	if (m_ram[m_ptr] != m_waiArgList[m_head])
+	if (m_ram[m_ptr] != m_proc.getWaiArg(m_head))
 	{
 		bool findMatch = false;
 
+		const auto targetID = m_proc.getWaiID(m_head);
+
 		for (auto h = m_head; h > 0; --h)
 		{
-			if (m_uwaIDList[h] == m_waiIDList[m_head])
+			if (m_proc.getUwaID(h) == targetID)
 			{
 				m_head = h;
 
@@ -394,7 +332,7 @@ void Interpreter::cmdWai(std::istringstream & sr)
 
 		if (findMatch == false)
 		{
-			if (m_uwaIDList[0] == m_waiIDList[m_head])
+			if (m_proc.getUwaID(0) == targetID)
 			{
 				m_head = 0;
 

@@ -33,6 +33,10 @@ public:
 private:
 	std::size_t m_beginIndex;
 	std::vector<std::string> m_code;
+	std::vector<std::size_t> m_uwaIDList;
+	std::vector<char> m_uwaArgList;
+	std::vector<std::size_t> m_waiIDList;
+	std::vector<char> m_waiArgList;
 
 
 public:
@@ -42,6 +46,18 @@ public:
 	void pushCall(std::size_t destIndex);
 	void pushCmd(const std::string& cmd);
 	void pushCmd(const std::string& subType, const std::string& cmd);
+
+
+public:
+	void appendUwaiList();
+	void increaseUwaID();
+	void increaseUwaArg();
+	void increaseWaiID();
+	void increaseWaiArg();
+	std::size_t getUwaID(std::size_t index) const;
+	char getUwaArg(std::size_t index) const;
+	std::size_t getWaiID(std::size_t index) const;
+	char getWaiArg(std::size_t index) const;
 
 
 public:

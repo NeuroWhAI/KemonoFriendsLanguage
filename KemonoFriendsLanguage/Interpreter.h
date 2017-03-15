@@ -25,10 +25,6 @@ private:
 	std::vector<char> m_ram;
 	std::size_t m_ptr;
 	std::stack<std::pair<std::size_t, std::size_t>> m_callStack;
-	std::vector<std::size_t> m_uwaIDList;
-	std::vector<char> m_uwaArgList;
-	std::vector<std::size_t> m_waiIDList;
-	std::vector<char> m_waiArgList;
 
 
 public:

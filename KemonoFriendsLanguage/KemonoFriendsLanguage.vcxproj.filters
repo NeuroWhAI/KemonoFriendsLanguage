@@ -25,6 +25,12 @@
     <Filter Include="KFL\Interpreter">
       <UniqueIdentifier>{73de21e3-4f0f-4eea-9372-4dd4a7b6e300}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KFL\Tokenizer">
+      <UniqueIdentifier>{db74dc46-f858-454b-880c-6cfdbac62dc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KFL\Token">
+      <UniqueIdentifier>{4db65597-2d66-4589-865e-b27c8765b7db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,6 +45,33 @@
     <ClCompile Include="Interpreter.cpp">
       <Filter>KFL\Interpreter</Filter>
     </ClCompile>
+    <ClCompile Include="Tokenizer.cpp">
+      <Filter>KFL\Tokenizer</Filter>
+    </ClCompile>
+    <ClCompile Include="Token.cpp">
+      <Filter>KFL\Token</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdToken.cpp">
+      <Filter>KFL\Token</Filter>
+    </ClCompile>
+    <ClCompile Include="FuncToken.cpp">
+      <Filter>KFL\Token</Filter>
+    </ClCompile>
+    <ClCompile Include="CallToken.cpp">
+      <Filter>KFL\Token</Filter>
+    </ClCompile>
+    <ClCompile Include="MainToken.cpp">
+      <Filter>KFL\Token</Filter>
+    </ClCompile>
+    <ClCompile Include="UwaToken.cpp">
+      <Filter>KFL\Token</Filter>
+    </ClCompile>
+    <ClCompile Include="WaiToken.cpp">
+      <Filter>KFL\Token</Filter>
+    </ClCompile>
+    <ClCompile Include="LalaToken.cpp">
+      <Filter>KFL\Token</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Compiler.h">
@@ -49,6 +82,36 @@
     </ClInclude>
     <ClInclude Include="Interpreter.h">
       <Filter>KFL\Interpreter</Filter>
+    </ClInclude>
+    <ClInclude Include="Tokenizer.h">
+      <Filter>KFL\Tokenizer</Filter>
+    </ClInclude>
+    <ClInclude Include="Token.h">
+      <Filter>KFL\Token</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdToken.h">
+      <Filter>KFL\Token</Filter>
+    </ClInclude>
+    <ClInclude Include="FuncToken.h">
+      <Filter>KFL\Token</Filter>
+    </ClInclude>
+    <ClInclude Include="CallToken.h">
+      <Filter>KFL\Token</Filter>
+    </ClInclude>
+    <ClInclude Include="MainToken.h">
+      <Filter>KFL\Token</Filter>
+    </ClInclude>
+    <ClInclude Include="UwaToken.h">
+      <Filter>KFL\Token</Filter>
+    </ClInclude>
+    <ClInclude Include="WaiToken.h">
+      <Filter>KFL\Token</Filter>
+    </ClInclude>
+    <ClInclude Include="LalaToken.h">
+      <Filter>KFL\Token</Filter>
+    </ClInclude>
+    <ClInclude Include="AllTokens.h">
+      <Filter>KFL\Token</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

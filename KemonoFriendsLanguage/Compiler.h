@@ -6,6 +6,7 @@
 #include <vector>
 #include <unordered_map>
 
+#include "AllTokens.h"
 #include "Program.h"
 
 
@@ -18,18 +19,19 @@ public:
 
 
 private:
-	std::vector<std::string> m_funcTokens;
-	std::vector<std::string> m_callTokens;
-	std::vector<std::string> m_mainTokens;
-	std::vector<std::string> m_tanoshiTokens;
-	std::vector<std::string> m_sugoiTokens;
-	std::vector<std::string> m_uwaTokens;
-	std::vector<std::string> m_waiTokens;
-	std::vector<std::string> m_naniTokens;
-	std::vector<std::string> m_omoshiTokens;
-	std::vector<std::string> m_lalaTokens;
-	std::vector<std::string> m_writeRegTokens;
-	std::vector<std::string> m_readRegTokens;
+	const std::vector<Token*> m_tokenList;
+	FuncToken m_funcToken;
+	CallToken m_callToken;
+	MainToken m_mainToken;
+	CmdToken m_tanoshiToken;
+	CmdToken m_sugoiToken;
+	UwaToken m_uwaToken;
+	WaiToken m_waiToken;
+	CmdToken m_naniToken;
+	CmdToken m_omoshiToken;
+	LalaToken m_lalaToken;
+	CmdToken m_writeRegToken;
+	CmdToken m_readRegToken;
 
 
 private:
@@ -38,11 +40,6 @@ private:
 
 public:
 	Program compile(const std::vector<std::string>& tokens);
-
-
-private:
-	bool isToken(const std::vector<std::string>& tokens, const std::string& text) const;
-	bool startWithToken(const std::vector<std::string>& tokens, const std::string& text) const;
 };
 
 

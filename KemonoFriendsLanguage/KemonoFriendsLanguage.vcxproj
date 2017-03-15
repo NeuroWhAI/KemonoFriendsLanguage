@@ -139,15 +139,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CallToken.cpp" />
     <ClCompile Include="Compiler.cpp" />
+    <ClCompile Include="FuncToken.cpp" />
     <ClCompile Include="Interpreter.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="CmdToken.cpp" />
+    <ClCompile Include="MainToken.cpp" />
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="Token.cpp" />
+    <ClCompile Include="Tokenizer.cpp" />
+    <ClCompile Include="UwaToken.cpp" />
+    <ClCompile Include="WaiToken.cpp" />
+    <ClCompile Include="LalaToken.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AllTokens.h" />
+    <ClInclude Include="CallToken.h" />
     <ClInclude Include="Compiler.h" />
+    <ClInclude Include="FuncToken.h" />
     <ClInclude Include="Interpreter.h" />
+    <ClInclude Include="CmdToken.h" />
+    <ClInclude Include="LalaToken.h" />
+    <ClInclude Include="MainToken.h" />
     <ClInclude Include="Program.h" />
+    <ClInclude Include="Token.h" />
+    <ClInclude Include="Tokenizer.h" />
+    <ClInclude Include="UwaToken.h" />
+    <ClInclude Include="WaiToken.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

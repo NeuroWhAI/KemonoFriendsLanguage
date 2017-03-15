@@ -1,5 +1,8 @@
 #include "Program.h"
 
+#include <numeric>
+#include <stdexcept>
+
 
 
 
@@ -60,6 +63,70 @@ void Program::pushCmd(const std::string& cmd)
 void Program::pushCmd(const std::string& subType, const std::string& cmd)
 {
 	m_code.emplace_back(CMD + subType + cmd);
+}
+
+//###################################################################################################
+
+void Program::appendUwaiList()
+{
+	m_uwaIDList.emplace_back(0);
+	m_uwaArgList.emplace_back(0);
+	m_waiIDList.emplace_back(0);
+	m_waiArgList.emplace_back(0);
+}
+
+
+void Program::increaseUwaID()
+{
+	++m_uwaIDList.back();
+}
+
+
+void Program::increaseUwaArg()
+{
+	if (m_uwaArgList.back() >= std::numeric_limits<char>::max())
+		throw std::exception("Too big uwa-arg.");
+
+	++m_uwaArgList.back();
+}
+
+
+void Program::increaseWaiID()
+{
+	++m_waiIDList.back();
+}
+
+
+void Program::increaseWaiArg()
+{
+	if (m_waiArgList.back() >= std::numeric_limits<char>::max())
+		throw std::exception("Too big wai-arg.");
+
+	++m_waiArgList.back();
+}
+
+
+std::size_t Program::getUwaID(std::size_t index) const
+{
+	return m_uwaIDList[index];
+}
+
+
+char Program::getUwaArg(std::size_t index) const
+{
+	return m_uwaArgList[index];
+}
+
+
+std::size_t Program::getWaiID(std::size_t index) const
+{
+	return m_waiIDList[index];
+}
+
+
+char Program::getWaiArg(std::size_t index) const
+{
+	return m_waiArgList[index];
 }
 
 //###################################################################################################
