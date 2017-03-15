@@ -25,7 +25,7 @@ std::size_t LalaToken::compile(const std::vector<std::string>& tokens,
 
 		for (auto& tok : tokens)
 		{
-			if (code.find(tok, laOffset) == 0)
+			if (code.find(tok, laOffset) == laOffset)
 			{
 				laOffset += tok.length();
 

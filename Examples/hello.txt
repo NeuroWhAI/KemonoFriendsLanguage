@@ -1,0 +1,12 @@
+# Print Function
+friends say_hello
+    '0'
+    tanoshi!
+    "!dlroW ,olleH"
+    uwa~
+    omoshiro!
+    sugoi!
+    wai~
+# Main Function
+youkoso
+    sandstar say_hello
