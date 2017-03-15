@@ -37,3 +37,47 @@ youkoso
 요코소
     샌드스타 say_hello
 ```
+
+- BrainFu*k Style
+```
+youkoso
+    ta-----~noshi
+    uwa~
+        tanoshi! ta-------noshi!
+        ta----------noshi!
+        ta---noshi!
+        ta-noshi
+        sugoi!!!!
+        sugo-i
+    wai~
+    tanoshi!
+    ta--noshi
+    omoshiro!
+    tanoshi!
+    ta-noshi
+    omoshiro!
+    ta-------noshi
+    omoshiro!
+    omoshiro!
+    ta---noshi
+    omoshiro!
+    tanoshi!
+    ta--noshi
+    omoshiro!
+    sugoi!!
+    ta---------------noshi
+    omoshiro!
+    tanoshi!
+    omoshiro!
+    ta---noshi
+    omoshiro!
+    sugo------i
+    omoshiro!
+    sugo--------i
+    omoshiro!
+    tanoshi!
+    ta-noshi
+    omoshiro!
+    tanoshi!
+    omoshiro!
+```

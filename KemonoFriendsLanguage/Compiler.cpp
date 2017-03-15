@@ -1,8 +1,6 @@
 #include "Compiler.h"
 
 #include <stdexcept>
-#include <algorithm>
-#include <sstream>
 
 
 
