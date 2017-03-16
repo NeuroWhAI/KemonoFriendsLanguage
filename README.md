@@ -88,11 +88,11 @@ sugo(-/~)i(!) : decrease p or [p]
     sugo~-i : [p]/=2 → [p]-=1
     sugo-i! : [p]-=1 → p-=1
 u(-)wa(~) : jump
-    uwa~ : if [*]==0 then move h to wa(-)i~
-    u-wa~~ : if [*]==1 then move h to wa(-)i~~
+    uwa~ : if [p]==0 then move h to wa(-)i~
+    u-wa~~ : if [p]==1 then move h to wa(-)i~~
 wa(-)i(~) : jump
-    wai~ : if [*]!=0 then move h to u(-)wa~
-    wa-i~~ : if [*]!=1 then move h to u(-)wa~~
+    wai~ : if [p]!=0 then move h to u(-)wa~
+    wa-i~~ : if [p]!=1 then move h to u(-)wa~~
 nanikore(?) : input
     nanikore? : [p]=input
     nanikore?? : [p]=input → p+=1 → [p]=input
