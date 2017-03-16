@@ -4,17 +4,23 @@
 
 #include "Token.h"
 
+#include "Program.h"
+
 
 
 
 class RepeatToken : public Token
 {
 public:
-	RepeatToken(const std::string& type, const std::initializer_list<std::string>& tokens);
+	static const char ONE_CHAR_ONE_TOKEN = '-';
+
+
+public:
+	RepeatToken(Program::Types type, const std::initializer_list<std::string>& tokens);
 
 
 private:
-	std::string m_type;
+	Program::Types m_type;
 
 
 protected:

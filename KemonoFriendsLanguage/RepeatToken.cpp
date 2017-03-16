@@ -5,7 +5,7 @@
 
 
 
-RepeatToken::RepeatToken(const std::string& type, const std::initializer_list<std::string>& tokens)
+RepeatToken::RepeatToken(Program::Types type, const std::initializer_list<std::string>& tokens)
 	: Token(tokens)
 	, m_type(type)
 {
@@ -30,7 +30,7 @@ std::size_t RepeatToken::compile(const std::vector<std::string>& tokens,
 			{
 				laOffset += tok.length();
 
-				cmd.push_back(m_type[0]);
+				cmd.push_back(ONE_CHAR_ONE_TOKEN);
 
 				findTok = true;
 				break;

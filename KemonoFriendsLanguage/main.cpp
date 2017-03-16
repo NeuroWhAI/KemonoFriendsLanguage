@@ -56,6 +56,7 @@ int main(int argc, char** argv)
 
 
 #ifdef _DEBUG
+	std::cout << std::endl << "Press the Enter key to exit." << std::endl;
 	std::cin.get();
 #endif // _DEBUG
 

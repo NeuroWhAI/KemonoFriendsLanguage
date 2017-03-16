@@ -4,6 +4,8 @@
 #include <numeric>
 #include <stdexcept>
 
+#include "RepeatToken.h"
+
 
 
 
@@ -12,8 +14,30 @@ Interpreter::Interpreter()
 	, m_head(0)
 	, m_ram(64, 0)
 	, m_ptr(0)
+	, m_cmdList(static_cast<std::size_t>(Program::Types::Count), &Interpreter::cmdNop)
 {
+	registerCmd(Program::Types::NOP, &Interpreter::cmdNop);
+	registerCmd(Program::Types::STR, &Interpreter::cmdString);
+	registerCmd(Program::Types::NUM, &Interpreter::cmdNumbers);
+	registerCmd(Program::Types::FUNC, &Interpreter::cmdFunc);
+	registerCmd(Program::Types::CALL, &Interpreter::cmdCall);
+	registerCmd(Program::Types::TAN, &Interpreter::cmdTanoshi);
+	registerCmd(Program::Types::SUG, &Interpreter::cmdSugoi);
+	registerCmd(Program::Types::UWA, &Interpreter::cmdUwa);
+	registerCmd(Program::Types::WAI, &Interpreter::cmdWai);
+	registerCmd(Program::Types::NANI, &Interpreter::cmdNanikore);
+	registerCmd(Program::Types::OMOS, &Interpreter::cmdOmoshiro);
+	registerCmd(Program::Types::LAL, &Interpreter::cmdLala);
+	registerCmd(Program::Types::MYA, &Interpreter::cmdMya);
+	registerCmd(Program::Types::SARU, &Interpreter::cmdWriteReg);
+	registerCmd(Program::Types::SABT, &Interpreter::cmdReadReg);
+}
 
+//###################################################################################################
+
+void Interpreter::registerCmd(Program::Types type, CmdFunc cmd)
+{
+	m_cmdList[static_cast<int>(type)] = cmd;
 }
 
 //###################################################################################################
@@ -43,54 +67,15 @@ void Interpreter::run()
 		auto& code = proc[m_head];
 
 		std::istringstream sr{ code };
-		const char type = sr.get();
+		const auto type = sr.get() - Program::TYPE_TO_CHAR;
 
-		if (type == Program::NOP[0])
+		if (type >= 0 && static_cast<std::size_t>(type) < m_cmdList.size())
 		{
-			++m_head;
-		}
-		else if (type == Program::FUNC[0])
-		{
-			if (m_callStack.empty())
-			{
-				break;
-			}
-			else
-			{
-				const auto& bak = m_callStack.top();
-
-				m_head = bak.head + 1;
-				m_ptr = bak.ptr;
-
-				std::size_t ptr = bak.ptr + 1;
-				for (auto& data : bak.ram)
-				{
-					m_ram[ptr] = data;
-
-					++ptr;
-				}
-
-				m_callStack.pop();
-			}
-		}
-		else if (type == Program::CALL[0])
-		{
-			CallStack bak;
-			bak.head = m_head;
-			bak.ptr = m_ptr;
-			bak.ram.assign(m_ram.begin() + (m_ptr + 1), m_ram.end());
-
-			m_callStack.emplace(std::move(bak));
-
-			sr >> m_head;
-		}
-		else if (type == Program::CMD[0])
-		{
-			runCmd(sr);
+			(this->*m_cmdList[type])(sr);
 		}
 		else
 		{
-			throw std::exception("Invalid code.");
+			throw std::exception("Unknown command.");
 		}
 	}
 }
@@ -118,107 +103,18 @@ void Interpreter::decPtr()
 
 //###################################################################################################
 
-void Interpreter::runCmd(std::istringstream& sr)
+void Interpreter::cmdNop(std::istringstream& sr)
 {
-	const auto subType = sr.get();
-
-
-	if (subType == '\'')
-	{
-		cmdNumbers(sr);
-	}
-	else if (subType == '\"')
-	{
-		cmdString(sr);
-	}
-	else if (subType == Program::TAN[0])
-	{
-		cmdTanoshi(sr);
-	}
-	else if (subType == Program::SUG[0])
-	{
-		cmdSugoi(sr);
-	}
-	else if (subType == Program::UWA[0])
-	{
-		cmdUwa(sr);
-	}
-	else if (subType == Program::WAI[0])
-	{
-		cmdWai(sr);
-	}
-	else if (subType == Program::NANI[0])
-	{
-		cmdNanikore(sr);
-	}
-	else if (subType == Program::OMOS[0])
-	{
-		cmdOmoshiro(sr);
-	}
-	else if (subType == Program::LAL[0])
-	{
-		cmdLala(sr);
-	}
-	else if (subType == Program::MYA[0])
-	{
-		cmdMya(sr);
-	}
-	else if (subType == Program::SARU[0])
-	{
-		cmdWriteReg(sr);
-	}
-	else if (subType == Program::SABT[0])
-	{
-		cmdReadReg(sr);
-	}
-	else
-	{
-		//throw std::exception("Unknown command type.");
-		++m_head;
-	}
-}
-
-
-void Interpreter::cmdNumbers(std::istringstream& sr)
-{
-	bool first = true;
-	std::string buffer;
-
-	while (!sr.eof())
-	{
-		auto ch = sr.get();
-
-		if (ch < '0' || ch > '9')
-		{
-			if (buffer.empty())
-				continue;
-
-			if (first)
-			{
-				first = false;
-			}
-			else
-			{
-				incPtr();
-			}
-
-			m_ram[m_ptr] = static_cast<char>(std::stoi(buffer) & 0x000000ff);
-
-			buffer.clear();
-		}
-		else
-		{
-			buffer.push_back(ch);
-		}
-	}
-
-
 	++m_head;
 }
 
 
 void Interpreter::cmdString(std::istringstream& sr)
 {
+	// Pop first '"'
+	sr.get();
+
+
 	bool first = true;
 
 	while (!sr.eof())
@@ -242,6 +138,88 @@ void Interpreter::cmdString(std::istringstream& sr)
 
 
 	++m_head;
+}
+
+
+void Interpreter::cmdNumbers(std::istringstream& sr)
+{
+	bool first = true;
+	std::string buffer;
+
+	while (!sr.eof())
+	{
+		auto ch = sr.get();
+
+		if (ch >= '0' && ch <= '9')
+		{
+			buffer.push_back(ch);
+		}
+		else if (buffer.empty() && (ch == '-' || ch == '+'))
+		{
+			buffer.push_back(ch);
+		}
+		else
+		{
+			if (buffer.empty())
+				continue;
+
+			if (first)
+			{
+				first = false;
+			}
+			else
+			{
+				incPtr();
+			}
+
+			m_ram[m_ptr] = static_cast<char>(std::stoi(buffer) & 0x000000ff);
+
+			buffer.clear();
+		}
+	}
+
+
+	++m_head;
+}
+
+
+void Interpreter::cmdFunc(std::istringstream& sr)
+{
+	if (m_callStack.empty())
+	{
+		// Exit.
+		m_head = m_proc.getCode().size();
+	}
+	else
+	{
+		const auto& bak = m_callStack.top();
+
+		m_head = bak.head + 1;
+		m_ptr = bak.ptr;
+
+		std::size_t ptr = bak.ptr + 1;
+		for (auto& data : bak.ram)
+		{
+			m_ram[ptr] = data;
+
+			++ptr;
+		}
+
+		m_callStack.pop();
+	}
+}
+
+
+void Interpreter::cmdCall(std::istringstream& sr)
+{
+	CallStack bak;
+	bak.head = m_head;
+	bak.ptr = m_ptr;
+	bak.ram.assign(m_ram.begin() + (m_ptr + 1), m_ram.end());
+
+	m_callStack.emplace(std::move(bak));
+
+	sr >> m_head;
 }
 
 
@@ -432,7 +410,7 @@ void Interpreter::cmdLala(std::istringstream & sr)
 	{
 		char ch = sr.get();
 
-		if (ch == Program::LAL[0])
+		if (ch == RepeatToken::ONE_CHAR_ONE_TOKEN)
 		{
 			incPtr();
 		}
@@ -453,7 +431,7 @@ void Interpreter::cmdMya(std::istringstream & sr)
 	{
 		char ch = sr.get();
 
-		if (ch == Program::MYA[0])
+		if (ch == RepeatToken::ONE_CHAR_ONE_TOKEN)
 		{
 			decPtr();
 		}

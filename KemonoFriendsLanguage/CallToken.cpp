@@ -27,7 +27,7 @@ std::size_t CallToken::compile(const std::vector<std::string>& tokens,
 		throw std::exception("There is no function.");
 
 
-	proc.pushNop();
+	proc.pushCmd(Program::Types::NOP);
 	proc.pushCall(funcItr->second);
 
 

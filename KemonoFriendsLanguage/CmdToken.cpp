@@ -5,7 +5,7 @@
 
 
 
-CmdToken::CmdToken(const std::string& type, const std::initializer_list<std::string>& tokens)
+CmdToken::CmdToken(Program::Types type, const std::initializer_list<std::string>& tokens)
 	: Token(tokens)
 	, m_type(type)
 {

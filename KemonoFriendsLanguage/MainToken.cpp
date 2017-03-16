@@ -17,7 +17,7 @@ std::size_t MainToken::compile(const std::vector<std::string>& tokens,
 	std::vector<std::string>::const_iterator itr,
 	const std::string& code, Program& proc) const
 {
-	proc.pushFunc();
+	proc.pushCmd(Program::Types::FUNC);
 
 
 	return 0;

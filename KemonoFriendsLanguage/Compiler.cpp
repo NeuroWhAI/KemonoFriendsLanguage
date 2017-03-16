@@ -8,25 +8,31 @@
 Compiler::Compiler()
 	: m_tokenList(
 {
-	&m_funcToken, &m_callToken, &m_mainToken, &m_tanoshiToken, &m_sugoiToken,
-	&m_uwaToken, &m_waiToken, &m_naniToken, &m_omoshiToken, &m_lalaToken, &m_myaToken,
+	&m_stringToken, &m_numberToken,
+	&m_funcToken, &m_callToken, &m_mainToken,
+	&m_tanoshiToken, &m_sugoiToken,
+	&m_uwaToken, &m_waiToken,
+	&m_naniToken, &m_omoshiToken,
+	&m_lalaToken, &m_myaToken,
 	&m_writeRegToken, &m_readRegToken,
 }
 	)
 	
+	, m_stringToken(Program::Types::STR, { "\"" })
+	, m_numberToken(Program::Types::NUM, { "\'" })
 	, m_funcToken({ "friends", "프렌즈" })
 	, m_callToken(m_funcTable, { "sandstar", "샌드스타" })
 	, m_mainToken({ "youkoso", "요코소" })
-	, m_tanoshiToken(Program::TAN, { "ta", "타" })
-	, m_sugoiToken(Program::SUG, { "sugo", "스고", "슷고" })
+	, m_tanoshiToken(Program::Types::TAN, { "ta", "타" })
+	, m_sugoiToken(Program::Types::SUG, { "sugo", "스고", "슷고" })
 	, m_uwaToken({ "u", "우" })
 	, m_waiToken({ "wa", "와" })
-	, m_naniToken(Program::NANI, { "nanikore", "나니코레" })
-	, m_omoshiToken(Program::OMOS, { "omoshiro", "오모시로" })
-	, m_lalaToken(Program::LAL, { "la", "라", "랄" })
-	, m_myaToken(Program::MYA, { "mya", "먀", "먕" })
-	, m_writeRegToken(Program::SARU, { "shaberu", "샤베루" })
-	, m_readRegToken(Program::SABT, { "shabetta", "shabeta", "샤벳타", "샤베타" })
+	, m_naniToken(Program::Types::NANI, { "nanikore", "나니코레" })
+	, m_omoshiToken(Program::Types::OMOS, { "omoshiro", "오모시로" })
+	, m_lalaToken(Program::Types::LAL, { "la", "라", "랄" })
+	, m_myaToken(Program::Types::MYA, { "mya", "먀", "먕" })
+	, m_writeRegToken(Program::Types::SARU, { "shaberu", "샤베루" })
+	, m_readRegToken(Program::Types::SABT, { "shabetta", "shabeta", "샤벳타", "샤베타" })
 {
 	
 }
@@ -104,13 +110,13 @@ Program Compiler::compile(const std::vector<std::string>& tokens)
 
 		if (findToken == false)
 		{
-			program.pushCmd(*itr);
+			program.pushCmd(Program::Types::NOP);
 		}
 	}
 
 
 	// 마지막에 선언된 함수가 반환될 수 있도록 함.
-	program.pushFunc();
+	program.pushCmd(Program::Types::FUNC);
 
 
 	return program;

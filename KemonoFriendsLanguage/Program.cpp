@@ -6,23 +6,6 @@
 
 
 
-const std::string Program::NOP = "$";
-const std::string Program::FUNC = "f";
-const std::string Program::CALL = "c";
-const std::string Program::CMD = "*";
-const std::string Program::TAN = "t";
-const std::string Program::SUG = "s";
-const std::string Program::UWA = "u";
-const std::string Program::WAI = "w";
-const std::string Program::NANI = "n";
-const std::string Program::OMOS = "o";
-const std::string Program::LAL = "l";
-const std::string Program::MYA = "m";
-const std::string Program::SARU = "<";
-const std::string Program::SABT = ">";
-
-//###################################################################################################
-
 Program::Program()
 	: m_beginIndex(0)
 {
@@ -37,33 +20,27 @@ void Program::setMain(std::size_t index)
 }
 
 
-void Program::pushNop()
-{
-	m_code.emplace_back(NOP);
-}
-
-
-void Program::pushFunc()
-{
-	m_code.emplace_back(FUNC);
-}
-
-
 void Program::pushCall(std::size_t destIndex)
 {
-	m_code.emplace_back(CALL + std::to_string(destIndex));
+	const char typeChar = static_cast<char>(TYPE_TO_CHAR + static_cast<int>(Types::CALL));
+
+	m_code.emplace_back(std::string({ typeChar }) + std::to_string(destIndex));
 }
 
 
-void Program::pushCmd(const std::string& cmd)
+void Program::pushCmd(Types type)
 {
-	m_code.emplace_back(CMD + cmd);
+	const char typeChar = static_cast<char>(TYPE_TO_CHAR + static_cast<int>(type));
+
+	m_code.emplace_back(std::string({ typeChar }));
 }
 
 
-void Program::pushCmd(const std::string& subType, const std::string& cmd)
+void Program::pushCmd(Types type, const std::string& arg)
 {
-	m_code.emplace_back(CMD + subType + cmd);
+	const char typeChar = static_cast<char>(TYPE_TO_CHAR + static_cast<int>(type));
+
+	m_code.emplace_back(std::string({ typeChar }) + arg);
 }
 
 //###################################################################################################

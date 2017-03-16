@@ -4,17 +4,19 @@
 
 #include "Token.h"
 
+#include "Program.h"
+
 
 
 
 class CmdToken : public Token
 {
 public:
-	CmdToken(const std::string& type, const std::initializer_list<std::string>& tokens);
+	CmdToken(Program::Types type, const std::initializer_list<std::string>& tokens);
 
 
 private:
-	std::string m_type;
+	Program::Types m_type;
 
 
 protected:

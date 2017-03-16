@@ -11,20 +11,28 @@
 class Program
 {
 public:
-	static const std::string NOP;
-	static const std::string FUNC;
-	static const std::string CALL;
-	static const std::string CMD;
-	static const std::string TAN;
-	static const std::string SUG;
-	static const std::string UWA;
-	static const std::string WAI;
-	static const std::string NANI;
-	static const std::string OMOS;
-	static const std::string LAL;
-	static const std::string MYA;
-	static const std::string SARU;
-	static const std::string SABT;
+	static const int TYPE_TO_CHAR = 32;
+	enum class Types : int
+	{
+		NOP = 0,
+		STR,
+		NUM,
+		FUNC,
+		CALL,
+		TAN,
+		SUG,
+		UWA,
+		WAI,
+		NANI,
+		OMOS,
+		LAL,
+		MYA,
+		SARU,
+		SABT,
+
+		//----------------------------
+		Count
+	};
 
 
 public:
@@ -42,11 +50,9 @@ private:
 
 public:
 	void setMain(std::size_t index);
-	void pushNop();
-	void pushFunc();
 	void pushCall(std::size_t destIndex);
-	void pushCmd(const std::string& cmd);
-	void pushCmd(const std::string& subType, const std::string& cmd);
+	void pushCmd(Types type);
+	void pushCmd(Types type, const std::string& arg);
 
 
 public:

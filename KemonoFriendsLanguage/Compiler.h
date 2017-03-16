@@ -20,6 +20,8 @@ public:
 
 private:
 	const std::vector<Token*> m_tokenList;
+	CmdToken m_stringToken;
+	CmdToken m_numberToken;
 	FuncToken m_funcToken;
 	CallToken m_callToken;
 	MainToken m_mainToken;
