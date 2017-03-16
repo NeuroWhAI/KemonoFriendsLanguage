@@ -59,15 +59,28 @@ void Interpreter::run()
 			{
 				const auto& bak = m_callStack.top();
 
-				m_head = bak.first + 1;
-				m_ptr = bak.second;
+				m_head = bak.head + 1;
+				m_ptr = bak.ptr;
+
+				std::size_t ptr = bak.ptr + 1;
+				for (auto& data : bak.ram)
+				{
+					m_ram[ptr] = data;
+
+					++ptr;
+				}
 
 				m_callStack.pop();
 			}
 		}
 		else if (type == Program::CALL[0])
 		{
-			m_callStack.push(std::make_pair(m_head, m_ptr));
+			CallStack bak;
+			bak.head = m_head;
+			bak.ptr = m_ptr;
+			bak.ram.assign(m_ram.begin() + (m_ptr + 1), m_ram.end());
+
+			m_callStack.emplace(std::move(bak));
 
 			sr >> m_head;
 		}

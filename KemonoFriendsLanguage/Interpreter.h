@@ -14,6 +14,15 @@
 
 class Interpreter
 {
+private:
+	struct CallStack
+	{
+		std::size_t head;
+		std::size_t ptr;
+		std::vector<char> ram;
+	};
+
+
 public:
 	Interpreter();
 
@@ -24,7 +33,7 @@ private:
 	std::size_t m_head;
 	std::vector<char> m_ram;
 	std::size_t m_ptr;
-	std::stack<std::pair<std::size_t, std::size_t>> m_callStack;
+	std::stack<CallStack> m_callStack;
 
 
 public:

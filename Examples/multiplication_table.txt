@@ -84,7 +84,7 @@ youkoso
             sugoi!!!!!!!
             sandstar can_do_multiplication
             sandstar can_say_number
-            '10'
+            '10' # new line
             omoshiro!
             sugoi!!
             shaberu
