@@ -9,7 +9,7 @@ Wai~ Tanoshi~
 - English
 ```
 # Print Function
-friends say_hello
+friends English
     '0'
     tanoshi!
     "!dlroW ,olleH"
@@ -19,13 +19,13 @@ friends say_hello
     wai~
 # Main Function
 youkoso
-    sandstar say_hello
+    sandstar English
 ```
 
 - Korean
 ```
 # Print Function
-프렌즈 say_hello
+프렌즈 Korean
     '0'
     타노시!
     "!dlroW ,olleH"
@@ -35,7 +35,23 @@ youkoso
     와이~
 # Main Function
 요코소
-    샌드스타 say_hello
+    샌드스타 Korean
+```
+
+- Japanese
+```
+# Print Function
+フレンズ Japanese
+    '0'
+    たのし!
+    "!dlroW ,olleH"
+    うわ~
+    おもしろ!
+    すごい!
+    わい~
+# Main Function
+ようこそ
+    サンドスタ Japanese
 ```
 
 
