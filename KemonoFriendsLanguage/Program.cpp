@@ -17,6 +17,7 @@ const std::string Program::WAI = "w";
 const std::string Program::NANI = "n";
 const std::string Program::OMOS = "o";
 const std::string Program::LAL = "l";
+const std::string Program::MYA = "m";
 const std::string Program::SARU = "<";
 const std::string Program::SABT = ">";
 

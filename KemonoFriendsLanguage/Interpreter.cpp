@@ -146,6 +146,10 @@ void Interpreter::runCmd(std::istringstream& sr)
 	{
 		cmdLala(sr);
 	}
+	else if (subType == Program::MYA[0])
+	{
+		cmdMya(sr);
+	}
 	else if (subType == Program::SARU[0])
 	{
 		cmdWriteReg(sr);
@@ -409,6 +413,8 @@ void Interpreter::cmdOmoshiro(std::istringstream & sr)
 
 void Interpreter::cmdLala(std::istringstream & sr)
 {
+	auto src = m_ram[m_ptr];
+
 	while (!sr.eof())
 	{
 		char ch = sr.get();
@@ -416,9 +422,31 @@ void Interpreter::cmdLala(std::istringstream & sr)
 		if (ch == Program::LAL[0])
 		{
 			incPtr();
-			m_ram[m_ptr] = m_ram[m_ptr - 1];
 		}
 	}
+
+	m_ram[m_ptr] = src;
+
+
+	++m_head;
+}
+
+
+void Interpreter::cmdMya(std::istringstream & sr)
+{
+	auto src = m_ram[m_ptr];
+
+	while (!sr.eof())
+	{
+		char ch = sr.get();
+
+		if (ch == Program::MYA[0])
+		{
+			decPtr();
+		}
+	}
+
+	m_ram[m_ptr] = src;
 
 
 	++m_head;

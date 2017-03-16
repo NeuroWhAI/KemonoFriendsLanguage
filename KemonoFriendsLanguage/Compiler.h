@@ -29,7 +29,8 @@ private:
 	WaiToken m_waiToken;
 	CmdToken m_naniToken;
 	CmdToken m_omoshiToken;
-	LalaToken m_lalaToken;
+	RepeatToken m_lalaToken;
+	RepeatToken m_myaToken;
 	CmdToken m_writeRegToken;
 	CmdToken m_readRegToken;
 

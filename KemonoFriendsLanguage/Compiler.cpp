@@ -9,7 +9,7 @@ Compiler::Compiler()
 	: m_tokenList(
 {
 	&m_funcToken, &m_callToken, &m_mainToken, &m_tanoshiToken, &m_sugoiToken,
-	&m_uwaToken, &m_waiToken, &m_naniToken, &m_omoshiToken, &m_lalaToken,
+	&m_uwaToken, &m_waiToken, &m_naniToken, &m_omoshiToken, &m_lalaToken, &m_myaToken,
 	&m_writeRegToken, &m_readRegToken,
 }
 	)
@@ -23,7 +23,8 @@ Compiler::Compiler()
 	, m_waiToken({ "wa", "¿Í" })
 	, m_naniToken(Program::NANI, { "nanikore", "³ª´ÏÄÚ·¹" })
 	, m_omoshiToken(Program::OMOS, { "omoshiro", "¿À¸ð½Ã·Î" })
-	, m_lalaToken({ "la", "¶ó", "¶ö" })
+	, m_lalaToken(Program::LAL, { "la", "¶ó", "¶ö" })
+	, m_myaToken(Program::MYA, { "mya", "¸Ï", "¸Ò" })
 	, m_writeRegToken(Program::SARU, { "shaberu", "»þº£·ç" })
 	, m_readRegToken(Program::SABT, { "shabetta", "shabeta", "»þºªÅ¸", "»þº£Å¸" })
 {

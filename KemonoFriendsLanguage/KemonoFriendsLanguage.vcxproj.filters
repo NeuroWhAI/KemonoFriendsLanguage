@@ -69,7 +69,7 @@
     <ClCompile Include="WaiToken.cpp">
       <Filter>KFL\Token</Filter>
     </ClCompile>
-    <ClCompile Include="LalaToken.cpp">
+    <ClCompile Include="RepeatToken.cpp">
       <Filter>KFL\Token</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,10 +107,10 @@
     <ClInclude Include="WaiToken.h">
       <Filter>KFL\Token</Filter>
     </ClInclude>
-    <ClInclude Include="LalaToken.h">
+    <ClInclude Include="AllTokens.h">
       <Filter>KFL\Token</Filter>
     </ClInclude>
-    <ClInclude Include="AllTokens.h">
+    <ClInclude Include="RepeatToken.h">
       <Filter>KFL\Token</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,5 @@
-#ifndef __KFL__LALA_TOKEN_H__
-#define __KFL__LALA_TOKEN_H__
+#ifndef __KFL__REPEAT_TOKEN_H__
+#define __KFL__REPEAT_TOKEN_H__
 
 
 #include "Token.h"
@@ -7,10 +7,14 @@
 
 
 
-class LalaToken : public Token
+class RepeatToken : public Token
 {
 public:
-	LalaToken(const std::initializer_list<std::string>& tokens);
+	RepeatToken(const std::string& type, const std::initializer_list<std::string>& tokens);
+
+
+private:
+	std::string m_type;
 
 
 protected:

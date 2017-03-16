@@ -48,6 +48,7 @@ private:
 	void cmdNanikore(std::istringstream& sr);
 	void cmdOmoshiro(std::istringstream& sr);
 	void cmdLala(std::istringstream& sr);
+	void cmdMya(std::istringstream& sr);
 	void cmdWriteReg(std::istringstream& sr);
 	void cmdReadReg(std::istringstream& sr);
 };

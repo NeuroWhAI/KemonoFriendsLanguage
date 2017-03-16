@@ -6,7 +6,7 @@
 #include "CmdToken.h"
 #include "CallToken.h"
 #include "FuncToken.h"
-#include "LalaToken.h"
+#include "RepeatToken.h"
 #include "MainToken.h"
 #include "UwaToken.h"
 #include "WaiToken.h"

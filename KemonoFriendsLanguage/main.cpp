@@ -17,10 +17,14 @@ int main(int argc, char** argv)
 {
 	std::ifstream fr;
 
+#ifdef _DEBUG
+	fr.open("../Examples/hello.txt");
+#else
 	if (argc >= 2)
 		fr.open(argv[1]);
 	else
 		fr.open("code.txt");
+#endif
 
 	if (fr.is_open() == false)
 	{
@@ -52,7 +56,7 @@ int main(int argc, char** argv)
 
 
 #ifdef _DEBUG
-	system("pause");
+	std::cin.get();
 #endif // _DEBUG
 
 

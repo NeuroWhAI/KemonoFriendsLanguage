@@ -62,7 +62,7 @@ friends can_say_number
 youkoso
     '0 9 8 7 6 5 4 3 2'
     uwa~~
-        lalala
+        la la la
         sugoi!!
         '2'
         u----------wa~

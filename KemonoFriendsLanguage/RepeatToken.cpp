@@ -1,23 +1,24 @@
-#include "LalaToken.h"
+#include "RepeatToken.h"
 
 #include "Program.h"
 
 
 
 
-LalaToken::LalaToken(const std::initializer_list<std::string>& tokens)
+RepeatToken::RepeatToken(const std::string& type, const std::initializer_list<std::string>& tokens)
 	: Token(tokens)
+	, m_type(type)
 {
 
 }
 
 //###################################################################################################
 
-std::size_t LalaToken::compile(const std::vector<std::string>& tokens,
+std::size_t RepeatToken::compile(const std::vector<std::string>& tokens,
 	std::vector<std::string>::const_iterator itr,
 	const std::string& code, Program& proc) const
 {
-	std::string lala;
+	std::string cmd;
 
 	for (std::size_t laOffset = 0; laOffset < code.size();)
 	{
@@ -29,7 +30,7 @@ std::size_t LalaToken::compile(const std::vector<std::string>& tokens,
 			{
 				laOffset += tok.length();
 
-				lala.push_back(Program::LAL[0]);
+				cmd.push_back(m_type[0]);
 
 				findTok = true;
 				break;
@@ -42,7 +43,7 @@ std::size_t LalaToken::compile(const std::vector<std::string>& tokens,
 		}
 	}
 
-	proc.pushCmd(Program::LAL, lala);
+	proc.pushCmd(m_type, cmd);
 
 
 	return 0;

@@ -22,6 +22,7 @@ public:
 	static const std::string NANI;
 	static const std::string OMOS;
 	static const std::string LAL;
+	static const std::string MYA;
 	static const std::string SARU;
 	static const std::string SABT;
 
