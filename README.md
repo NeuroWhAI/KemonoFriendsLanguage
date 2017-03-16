@@ -1,7 +1,11 @@
 # Kemono Friends Language
 
-Welcome to japari park.  
-Wai~ Tanoshi~
+Fun! Awesome! Programming Language!  
+즐겁다! 굉장하다! 프로그래밍 언어!  
+たのしい! すごい! プログラミング 言語!  
+  
+Welcome to ようこそジャパリパーク！  
+うー！がぉー！  
 
 
 ## Hello, World!
