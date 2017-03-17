@@ -1,12 +1,18 @@
-# Kemono Friends Language
+# Kemono Friends Language - 슥語2(SuGGoi2)
 
-Fun! Awesome! Programming Language!  
-즐겁다! 굉장하다! 프로그래밍 언어!  
-たのしい! すごい! プログラミング 言語!  
-  
-Welcome to ようこそジャパリパーク！  
-うー！がぉー！  
+![Title Logo](./logo.png)
+<p style="text-align: center;">
+Fun! Awesome! Programming Language!<br>
+즐겁다! 굉장하다! 프로그래밍 언어!<br>
+たのしい！ すごい！ プログラミング 言語！<br>
+<br>
+Welcome to ようこそジャパリパーク！<br>
+うー！がぉー！<br>
+</p>
 
+<br>
+
+---
 
 ## Hello, World!
 
@@ -57,7 +63,6 @@ youkoso
 ようこそ
     サンドスタ Japanese
 ```
-
 
 ## Spec
 

@@ -4,6 +4,7 @@
 # Resource files
 *.ttf
 *.png
+!logo.png
 *.jpg
 *.bmp
 *.gif
