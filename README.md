@@ -12,7 +12,7 @@ Welcome to ようこそジャパリパーク！<br>
 ## Hello, World!
 
 - English
-```
+```python
 # Print Function
 friends English
     '0'
@@ -28,7 +28,7 @@ youkoso
 ```
 
 - Korean
-```
+```python
 # Print Function
 프렌즈 Korean
     '0'
@@ -44,7 +44,7 @@ youkoso
 ```
 
 - Japanese
-```
+```python
 # Print Function
 フレンズ Japanese
     '0'
