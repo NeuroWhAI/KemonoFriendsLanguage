@@ -3,6 +3,7 @@
 #include <iostream>
 #include <numeric>
 #include <stdexcept>
+#include <algorithm>
 
 #include "RepeatToken.h"
 
@@ -196,14 +197,7 @@ void Interpreter::cmdFunc(std::istringstream& sr)
 
 		m_head = bak.head + 1;
 		m_ptr = bak.ptr;
-
-		std::size_t ptr = bak.ptr + 1;
-		for (auto& data : bak.ram)
-		{
-			m_ram[ptr] = data;
-
-			++ptr;
-		}
+		std::copy(bak.ram.cbegin(), bak.ram.cend(), m_ram.begin() + (bak.ptr + 1));
 
 		m_callStack.pop();
 	}
@@ -393,7 +387,7 @@ void Interpreter::cmdOmoshiro(std::istringstream & sr)
 				incPtr();
 			}
 
-			std::cout << m_ram[m_ptr];
+			std::cout.put(m_ram[m_ptr]);
 		}
 	}
 
